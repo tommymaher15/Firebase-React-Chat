@@ -12,7 +12,7 @@ import { signin, signInWithGoogle, signInWithGitHub } from "../helpers/auth";
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
    
-   const handleChange =(e) => {
+   const handleChange = (e) => {
    setEmail(e.target.value)
    setPassword(e.target.value);   
   };
@@ -78,6 +78,7 @@ setError(error.message);
             />
           </div>
           <div>
+          
             {error ? (
               <p>{error}</p>
             ) : null}
