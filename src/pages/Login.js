@@ -23,7 +23,7 @@ import { signin, signInWithGoogle, signInWithGitHub } from "../helpers/auth";
     try {
       await signin(email, password);
     } catch (error) {
-      setError({ error: error.message });
+      setError(error.message);
     }
   };
 
@@ -31,7 +31,7 @@ import { signin, signInWithGoogle, signInWithGitHub } from "../helpers/auth";
     try {
       await signInWithGoogle();
     } catch (error) {
-     setError({error: error.message});
+     setError(error.message);
     }
   }
 
@@ -39,7 +39,7 @@ import { signin, signInWithGoogle, signInWithGitHub } from "../helpers/auth";
     try {
       await signInWithGitHub();
     } catch (error) {
-setError({ error: error.message });
+setError(error.message);
     }
   }
 
@@ -78,7 +78,7 @@ setError({ error: error.message });
             />
           </div>
           <div>
-            {this.state.error ? (
+            {error ? (
               <p>{error}</p>
             ) : null}
             <button type="submit">Login</button>
@@ -94,4 +94,4 @@ setError({ error: error.message });
     );
   
 }
-export default  Login ;
+export default  Login 
