@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { signin, signInWithGoogle, signInWithGitHub } from "../helpers/auth";
 
 
-// error handling up next 
+
 
 
  const Login =  () => {
