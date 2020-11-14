@@ -1,42 +1,42 @@
-import React, { Component } from 'react';
+import React, { useState} from 'react';
 import { Link } from 'react-router-dom';
 import { signup, signInWithGoogle, signInWithGitHub } from "../helpers/auth";
 
 
-export default class Signup extends Component {
-
-  state = {
-    error: null,
-    email: "",
-    password: ""
-  };
+const Signup = () => {
 
 
+  const [error, setError] = useState(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+ 
 
-handleChange(event){
-     this.setState({
-    [event.target.name]: event.target.value
-  });}
+
+ const handleChange = (e) => {
+  setEmail(e.target.value);
+  setPassword(e.target.value)  
+  }
+
 // asynchronous function awaiting email and password to access 
-  async handleSubmit(event) {
+  const handleSubmit= async(event) =>  {
     event.preventDefault();
-    this.setState({ error: '' });
+    setError(error.message);
     try {
-      await signup(this.state.email, this.state.password);
+      await signup(email, password);
     } catch (error) {
-      this.setState({ error: error.message });
+      setError(error.message);
     }
   }
 
-  async googleSignIn() {
+  const googleSignIn = async()  =>{
     try {
       await signInWithGoogle();
     } catch (error) {
-      this.setState({ error: error.message });
+      setError(error.message);
     }
   }
 
-  async githubSignIn() {
+  const githubSignIn = async() => {
     try {
       await signInWithGitHub();
     } catch (error) {
@@ -46,32 +46,33 @@ handleChange(event){
   }
 
 
-    render() {
+    
         return (
             
                  <div>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <h1>
-            Sign Up to
-          <Link to="/">Chatty</Link>
+            Sign Up to 
+            <Link to="/"> Chatty</Link>
           </h1>
+          
           <p>Fill in the form below to create an account.</p>
           <div>
-            <input placeholder="Email" name="email" type="email" onChange={this.handleChange} value={this.state.email}></input>
+            <input placeholder="Email" name="email" type="email" onChange={handleChange} value={this.state.email}></input>
           </div>
           <div>
-            <input placeholder="Password" name="password" onChange={this.handleChange} value={this.state.password} type="password"></input>
+            <input placeholder="Password" name="password" onChange={handleChange} value={this.state.password} type="password"></input>
           </div>
           <div>
             {this.state.error ? <p>{this.state.error}</p> : null}
             <button type="submit">Sign up</button>
             <p>Or</p>
             
-            <button  onClick={this.googleSignIn}>
+            <button  onClick={googleSignIn}>
             Sign up with Google
           </button>
           
-          <button onClick={this.githubSignIn}>
+          <button onClick={githubSignIn}>
             Sign up with GitHub
           </button>
           </div>
@@ -80,5 +81,6 @@ handleChange(event){
         </form>
             </div>
         )
-    }
+    
 }
+export default Signup;
