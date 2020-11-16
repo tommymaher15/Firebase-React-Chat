@@ -1,25 +1,27 @@
 import React, { Component } from "react";
 import Header from "../components/Header";
+// firebase imports.
 import { auth } from "../services/firebase";
 import { db } from "../services/firebase";
 
-// come back to this. Will need to refactor the componentDidMount to somethiing with hooks. 
-export default class Chat extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: auth().currentUser,
-      chats: [],
-      content: '',
-      readError: null,
-      writeError: null,
-      loadingChats: false
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.myRef = React.createRef();
-  }
 
+// auth listener usestate hook? 
+// callback function to listen to the auth.currentUser 
+// touch back on firebase documentation for firebase specific code 
+// touch back on sorting and the functiions handling and displaying the messages in order. 
+
+
+export default class Chat extends Component {
+  // firebase docs 
+  state = {
+    user: auth().currentUser,
+    chats: [],
+    content: '',
+    readError: null,
+    writeError: null,
+    loadingChats: false
+  };
+// rerenders chat as it updates by referencing the database 
   async componentDidMount() {
     this.setState({ readError: null, loadingChats: true });
     const chatArea = this.myRef.current;
@@ -44,7 +46,7 @@ export default class Chat extends Component {
       content: event.target.value
     });
   }
-
+// this should be fine/ just remove the this stuff after the componentdidmount 
   async handleSubmit(event) {
     event.preventDefault();
     this.setState({ writeError: null });
@@ -61,7 +63,7 @@ export default class Chat extends Component {
       this.setState({ writeError: error.message });
     }
   }
-
+// this is ok 
   formatTime(timestamp) {
     const d = new Date(timestamp);
     const time = `${d.getDate()}/${(d.getMonth()+1)}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}`;
@@ -69,6 +71,7 @@ export default class Chat extends Component {
   }
 
   render() {
+    // everything fine, just remove the states once the logic is fixed 
     return (
       <div>
         <Header />
@@ -99,12 +102,3 @@ export default class Chat extends Component {
     );
   }
 }
-
-// styling needs to be formatted for the chat. 
-/*
-figure out adding a name variable to the firebase state for the auth based on the current user to display on the message 
-
-
-
-
-*/
